@@ -41,16 +41,14 @@
   virtualisation.vmware.guest.enable = true;
 
   # Enable the X11 windowing system.
+  services.displayManager.defaultSession = "none+i3";
   services.xserver = {
     enable = true;
-    layout = "us";
+    xkb.layout = "us";
     resolutions = [{ x = 1440; y = 900; }];
     virtualScreen = { x = 1440; y = 900; };
     desktopManager = {
       xterm.enable = false;
-    };
-    displayManager = {
-      defaultSession = "none+i3";
     };
     windowManager.i3 = {
       enable = true;
