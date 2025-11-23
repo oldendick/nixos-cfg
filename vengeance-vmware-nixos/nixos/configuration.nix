@@ -96,6 +96,10 @@
       vim
       git
       alacritty
+      dive # look into docker image layers
+      podman-tui # status of containers in the terminal
+      docker-compose # start group of containers for dev
+      #podman-compose # start group of containers for dev
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -123,7 +127,21 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
+
+  # Enable common container config files in /etc/containers
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
